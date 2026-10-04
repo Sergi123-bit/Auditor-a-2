@@ -2,6 +2,7 @@ using System;
 using AppInsegura.Datos;
 using AppInsegura.Modelos;
 using AppInsegura.Servicios;
+using System.IO;
 
 namespace AppInsegura
 {
@@ -56,8 +57,10 @@ namespace AppInsegura
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Ha ocurrido un error inesperado:");
-                    Console.WriteLine(ex.ToString());
+                    Console.WriteLine("Ha ocurrido un error inesperado. vuelva ha nténtarlo de nuevo más tarde.");
+
+                    // El detalle técnico va a un log interno
+                    File.AppendAllText("errores.log", $"[{DateTime.Now}] {ex}\n");
                 }
 
                 Console.WriteLine();
