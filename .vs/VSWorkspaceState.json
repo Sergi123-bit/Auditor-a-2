@@ -5,9 +5,9 @@
     "\\bin\\Debug",
     "\\Datos",
     "\\Modelos",
-    "\\obj",
     "\\obj\\Debug",
     "\\Servicios"
   ],
+  "SelectedNode": "\\Program.cs",
   "PreviewInSolutionExplorer": false
 }
