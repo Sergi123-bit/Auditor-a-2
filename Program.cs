@@ -97,7 +97,7 @@ namespace AppInsegura
             Console.Write("Nombre de usuario: ");
             string nombre = Console.ReadLine() ?? "";
             Console.Write("Contraseña: ");
-            string contrasena = Console.ReadLine() ?? "";
+            string contrasena = LeerContrasenaOculta();
 
             Usuario nuevo = auth.Registrar(nombre, contrasena);
             Console.WriteLine($"Usuario '{nuevo.Nombre}' registrado con rol '{nuevo.Rol}'.");
@@ -108,7 +108,7 @@ namespace AppInsegura
             Console.Write("Nombre de usuario: ");
             string nombre = Console.ReadLine() ?? "";
             Console.Write("Contraseña: ");
-            string contrasena = Console.ReadLine() ?? "";
+            string contrasena = LeerContrasenaOculta();
 
             Usuario? usuario = auth.IniciarSesion(nombre, contrasena);
             if (usuario == null)
@@ -120,6 +120,32 @@ namespace AppInsegura
             usuarioActual = usuario;
             Console.WriteLine($"Bienvenido, {usuario.Nombre}.");
         }
+        //Se añade una nueva funcion para ocultar la vista de la contarseña
+
+          private static string LeerContrasenaOculta()
+        {
+        string contrasena = "";
+        ConsoleKeyInfo tecla;
+        do
+        {
+            tecla = Console.ReadKey(intercept: true);
+            if (tecla.Key != ConsoleKey.Enter && tecla.Key != ConsoleKey.Backspace)
+            {
+                contrasena += tecla.KeyChar;
+                Console.Write("*");
+            }
+            else if (tecla.Key == ConsoleKey.Backspace && contrasena.Length > 0)
+            {
+                contrasena = contrasena.Substring(0, contrasena.Length - 1);
+                Console.Write("\b \b");
+            }
+        } while (tecla.Key != ConsoleKey.Enter);
+
+        Console.WriteLine();
+        return contrasena;
+        }
+
+        // Hasta aqui es la funcion nueva
 
         private static void BuscarUsuario()
         {
