@@ -17,6 +17,8 @@ namespace AppInsegura
             CargarUsuariosDeEjemplo();
 
             Console.WriteLine("=== Gestor de Usuarios y Partidas ===");
+            // Quito esta línea porque mostraba las contraseñas por pantalla
+            // Console.WriteLine("(usuarios de prueba: admin/admin1234, ana/ana2024)");
             Console.WriteLine();
 
             bool salir = false;
@@ -57,6 +59,7 @@ namespace AppInsegura
                 }
                 catch (Exception ex)
                 {
+                     // Muestro un mensaje genérico al usuario y guardo el detalle en un log
                     Console.WriteLine("Ha ocurrido un error inesperado. vuelva ha nténtarlo de nuevo más tarde.");
 
                     // El detalle técnico va a un log interno
@@ -97,6 +100,7 @@ namespace AppInsegura
             Console.Write("Nombre de usuario: ");
             string nombre = Console.ReadLine() ?? "";
             Console.Write("Contraseña: ");
+            // función nueva para que no se vea la contraseña al escribirla
             string contrasena = LeerContrasenaOculta();
 
             Usuario nuevo = auth.Registrar(nombre, contrasena);
@@ -168,10 +172,12 @@ namespace AppInsegura
 
             Console.WriteLine($"Nombre: {usuarioActual.Nombre}");
             Console.WriteLine($"Rol: {usuarioActual.Rol}");
-            
+            // Quito el token porque es un dato sensible y no debe mostrarse
+            // Console.WriteLine($"Token de sesión: {usuarioActual.TokenSesion}");
         }
 
         private static void PanelAdministracion()
+        // Compruebo el rol aquí dentro, no solo en el menú
         {
              if (usuarioActual == null || usuarioActual.Rol != "admin")
         {
