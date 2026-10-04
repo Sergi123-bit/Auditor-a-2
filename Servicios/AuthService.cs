@@ -18,6 +18,23 @@ namespace AppInsegura.Servicios
 
         public Usuario Registrar(string nombre, string contrasena, string rol = "jugador")
         {
+            // CORRECCIÓN 1: Validación de entradas (evita valores nulos, vacíos o cadenas largas)
+            if (string.IsNullOrWhiteSpace(nombre) || nombre.Length > 20)
+            {
+                throw new ArgumentException("Nombre de usuario no válido.");
+            }
+
+            if (string.IsNullOrWhiteSpace(contrasena) || contrasena.Length < 8)
+            {
+                throw new ArgumentException("La contraseña debe tener al menos 8 caracteres.");
+            }
+
+            // CORRECCIÓN 1 (continuación): Lista blanca para evitar escalada de privilegios en el rol
+            if (rol != "jugador")
+            {
+                rol = "jugador";
+            }
+
             var nuevo = new Usuario
             {
                 Nombre = nombre,
@@ -32,6 +49,11 @@ namespace AppInsegura.Servicios
 
         public Usuario? IniciarSesion(string nombre, string contrasena)
         {
+            if (string.IsNullOrWhiteSpace(nombre) || string.IsNullOrWhiteSpace(contrasena))
+            {
+                return null;
+            }
+
             Usuario? usuario = baseDatos.BuscarExacto(nombre);
             if (usuario == null)
             {
@@ -46,7 +68,10 @@ namespace AppInsegura.Servicios
 
             usuario.TokenSesion = GenerarTokenSesion();
 
-            Console.WriteLine($"[LOG] Login correcto -> usuario: {usuario.Nombre}, token: {usuario.TokenSesion}");
+            // CORRECCIÓN 4: Eliminación del token de sesión del log de consola
+            // Prevención de fugas de información: no se registran datos sensibles
+            // (como el token de sesión) en la consola o los registros
+            Console.WriteLine($"[LOG] Login correcto -> usuario: {usuario.Nombre}");
 
             GuardarSesionEnDisco(usuario);
 
@@ -55,20 +80,25 @@ namespace AppInsegura.Servicios
 
         private string CalcularHash(string contrasena)
         {
-            using MD5 md5 = MD5.Create();
-            byte[] bytes = md5.ComputeHash(Encoding.UTF8.GetBytes(contrasena));
+            // CORRECCIÓN 2: Reemplazo de MD5 por SHA-256 (algoritmo seguro de hashing)
+            // Criptografía segura: se reemplaza MD5 por SHA-256 para evitar colisiones y el uso de algoritmos obsoletos
+            using SHA256 sha256 = SHA256.Create();
+            byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(contrasena));
             return Convert.ToHexString(bytes);
         }
 
         private string GenerarTokenSesion()
         {
-            var random = new Random();
-            return random.Next(100000, 999999).ToString();
+            // CORRECCIÓN 3: Reemplazo de System.Random por un generador de números aleatorios criptográficamente seguro
+            byte[] randomBytes = RandomNumberGenerator.GetBytes(32);
+            return Convert.ToHexString(randomBytes);
         }
 
         private void GuardarSesionEnDisco(Usuario usuario)
         {
-            File.WriteAllText("sesion.txt", $"{usuario.Nombre}:{usuario.TokenSesion}");
+            // CORRECCIÓN 5: No guardar tokens ni datos sensibles en texto plano en el fichero local
+            // Protección de datos persistidos: se elimina la escritura de tokens de sesión en archivos de texto plano locales
+            File.WriteAllText("sesion.txt", $"{usuario.Nombre}");
         }
     }
 }
