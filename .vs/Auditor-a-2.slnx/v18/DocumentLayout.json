@@ -42,8 +42,7 @@
               "RelativeToolTip": "Servicios\\RedService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-04T12:05:40.894Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-04T12:05:40.894Z"
             },
             {
               "$type": "Document",
@@ -55,8 +54,7 @@
               "RelativeToolTip": "Servicios\\AuthService.cs",
               "ViewState": "AgIAADEAAAAAAAAAAAAuwEIAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-04T12:01:43.936Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-04T12:01:43.936Z"
             },
             {
               "$type": "Document",
@@ -68,8 +66,7 @@
               "RelativeToolTip": "Modelos\\Usuario.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-04T11:58:26.919Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-04T11:58:26.919Z"
             },
             {
               "$type": "Document",
@@ -81,8 +78,7 @@
               "RelativeToolTip": "Datos\\BaseDatosUsuarios.cs",
               "ViewState": "AgIAABgAAAAAAAAAAAAuwD0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-03T20:32:08.095Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-03T20:32:08.095Z"
             },
             {
               "$type": "Document",
@@ -92,7 +88,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\usuario\\Documents\\GitHub\\Auditor-a-2\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAADkAAAAAAAAAAAAAAEkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAH0AAAAAAAAAAAAwwJAAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-10-03T19:54:56.585Z",
               "EditorCaption": ""

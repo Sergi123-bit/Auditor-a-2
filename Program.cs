@@ -142,7 +142,7 @@ namespace AppInsegura
 
             Console.WriteLine($"Nombre: {usuarioActual.Nombre}");
             Console.WriteLine($"Rol: {usuarioActual.Rol}");
-            Console.WriteLine($"Token de sesión: {usuarioActual.TokenSesion}");
+            
         }
 
         private static void PanelAdministracion()
