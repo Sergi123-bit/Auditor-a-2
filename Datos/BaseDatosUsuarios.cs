@@ -23,12 +23,23 @@ namespace AppInsegura.Datos
         }
 
         public Usuario? BuscarExacto(string nombre)
+
         {
+            
+        if (string.IsNullOrWhiteSpace(nombre) || nombre.Length > 20)
+            {
+             return null;
+            }
             return usuarios.FirstOrDefault(u => u.Nombre == nombre);
         }
 
         public Usuario? BuscarPorNombre(string nombreBuscado)
         {
+
+            if (string.IsNullOrWhiteSpace(nombreBuscado) || nombreBuscado.Length > 20)
+            {
+             return null;
+            }
             const string consulta = "SELECT * FROM usuarios WHERE nombre = @nombre";
             return EjecutarConsultaSimulada(consulta, nombreBuscado);
         }
