@@ -47,23 +47,16 @@ namespace AppInsegura.Datos
         // Simulación simplificada de un motor de consultas, únicamente para
         // que el ejercicio se pueda ejecutar sin una base de datos real.
         // Interpreta la cadena "consulta" igual que lo haría un motor SQL básico.
-        private Usuario? EjecutarConsultaSimulada(string consulta)
+
+        private Usuario? EjecutarConsultaSimulada(string consulta, string? parametro = null)
         {
             Console.WriteLine($"[DB] {consulta}");
 
-            if (consulta.Contains("' OR '1'='1") || consulta.Contains("' OR 1=1") || consulta.Contains("'='"))
-            {
-                return usuarios.FirstOrDefault();
-            }
-
-            Match coincidencia = Regex.Match(consulta, "nombre = '([^']*)'");
-            if (!coincidencia.Success)
+               if (parametro == null)
             {
                 return null;
             }
-
-            string nombre = coincidencia.Groups[1].Value;
-            return usuarios.FirstOrDefault(u => u.Nombre == nombre);
+            return usuarios.FirstOrDefault(u => u.Nombre == parametro);
         }
     }
 }
