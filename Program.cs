@@ -147,6 +147,11 @@ namespace AppInsegura
 
         private static void PanelAdministracion()
         {
+             if (usuarioActual == null || usuarioActual.Rol != "admin")
+        {
+        Console.WriteLine("No tienes permiso para acceder a esta sección.");
+        return;
+         }
             Console.WriteLine("=== PANEL DE ADMINISTRACIÓN ===");
             Console.WriteLine("Lista de usuarios registrados:");
             foreach (Usuario u in baseDatos.ListarTodos())
