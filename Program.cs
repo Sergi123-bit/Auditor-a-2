@@ -75,7 +75,7 @@ namespace AppInsegura
         private static void CargarUsuariosDeEjemplo()
         {
             auth.Registrar("admin", "admin1234", "admin");
-            auth.Registrar("ana", "ana2024", "jugador");
+            auth.Registrar("ana", "ana20245", "jugador");
         }
 
         private static void MostrarMenu()

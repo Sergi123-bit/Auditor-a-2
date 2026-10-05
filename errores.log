@@ -1,0 +1,4 @@
+[05/10/2026 19:08:16] System.ArgumentException: La contraseña debe tener al menos 8 caracteres.
+   at AppInsegura.Servicios.AuthService.Registrar(String nombre, String contrasena, String rol) in C:\Users\sergiterrones021\Documents\GitHub\Auditor-a-2\Servicios\AuthService.cs:line 29
+   at AppInsegura.Program.Registrar() in C:\Users\sergiterrones021\Documents\GitHub\Auditor-a-2\Program.cs:line 106
+   at AppInsegura.Program.Main(String[] args) in C:\Users\sergiterrones021\Documents\GitHub\Auditor-a-2\Program.cs:line 35
