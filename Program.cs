@@ -2,6 +2,7 @@ using System;
 using AppInsegura.Datos;
 using AppInsegura.Modelos;
 using AppInsegura.Servicios;
+using System.IO;
 
 namespace AppInsegura
 {
@@ -16,7 +17,8 @@ namespace AppInsegura
             CargarUsuariosDeEjemplo();
 
             Console.WriteLine("=== Gestor de Usuarios y Partidas ===");
-            Console.WriteLine("(usuarios de prueba: admin/admin1234, ana/ana2024)");
+            // Quito esta línea porque mostraba las contraseñas por pantalla
+            // Console.WriteLine("(usuarios de prueba: admin/admin1234, ana/ana2024)");
             Console.WriteLine();
 
             bool salir = false;
@@ -57,8 +59,11 @@ namespace AppInsegura
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Ha ocurrido un error inesperado:");
-                    Console.WriteLine(ex.ToString());
+                     // Muestro un mensaje genérico al usuario y guardo el detalle en un log
+                    Console.WriteLine("Ha ocurrido un error inesperado. vuelva ha nténtarlo de nuevo más tarde.");
+
+                    // El detalle técnico va a un log interno
+                    File.AppendAllText("errores.log", $"[{DateTime.Now}] {ex}\n");
                 }
 
                 Console.WriteLine();
@@ -95,7 +100,8 @@ namespace AppInsegura
             Console.Write("Nombre de usuario: ");
             string nombre = Console.ReadLine() ?? "";
             Console.Write("Contraseña: ");
-            string contrasena = Console.ReadLine() ?? "";
+            // función nueva para que no se vea la contraseña al escribirla
+            string contrasena = LeerContrasenaOculta();
 
             Usuario nuevo = auth.Registrar(nombre, contrasena);
             Console.WriteLine($"Usuario '{nuevo.Nombre}' registrado con rol '{nuevo.Rol}'.");
@@ -106,7 +112,7 @@ namespace AppInsegura
             Console.Write("Nombre de usuario: ");
             string nombre = Console.ReadLine() ?? "";
             Console.Write("Contraseña: ");
-            string contrasena = Console.ReadLine() ?? "";
+            string contrasena = LeerContrasenaOculta();
 
             Usuario? usuario = auth.IniciarSesion(nombre, contrasena);
             if (usuario == null)
@@ -118,6 +124,32 @@ namespace AppInsegura
             usuarioActual = usuario;
             Console.WriteLine($"Bienvenido, {usuario.Nombre}.");
         }
+        //Se añade una nueva funcion para ocultar la vista de la contarseña
+
+          private static string LeerContrasenaOculta()
+        {
+        string contrasena = "";
+        ConsoleKeyInfo tecla;
+        do
+        {
+            tecla = Console.ReadKey(intercept: true);
+            if (tecla.Key != ConsoleKey.Enter && tecla.Key != ConsoleKey.Backspace)
+            {
+                contrasena += tecla.KeyChar;
+                Console.Write("*");
+            }
+            else if (tecla.Key == ConsoleKey.Backspace && contrasena.Length > 0)
+            {
+                contrasena = contrasena.Substring(0, contrasena.Length - 1);
+                Console.Write("\b \b");
+            }
+        } while (tecla.Key != ConsoleKey.Enter);
+
+        Console.WriteLine();
+        return contrasena;
+        }
+
+        // Hasta aqui es la funcion nueva
 
         private static void BuscarUsuario()
         {
@@ -140,11 +172,18 @@ namespace AppInsegura
 
             Console.WriteLine($"Nombre: {usuarioActual.Nombre}");
             Console.WriteLine($"Rol: {usuarioActual.Rol}");
-            Console.WriteLine($"Token de sesión: {usuarioActual.TokenSesion}");
+            // Quito el token porque es un dato sensible y no debe mostrarse
+            // Console.WriteLine($"Token de sesión: {usuarioActual.TokenSesion}");
         }
 
         private static void PanelAdministracion()
+        // Compruebo el rol aquí dentro, no solo en el menú
         {
+             if (usuarioActual == null || usuarioActual.Rol != "admin")
+        {
+        Console.WriteLine("No tienes permiso para acceder a esta sección.");
+        return;
+         }
             Console.WriteLine("=== PANEL DE ADMINISTRACIÓN ===");
             Console.WriteLine("Lista de usuarios registrados:");
             foreach (Usuario u in baseDatos.ListarTodos())
