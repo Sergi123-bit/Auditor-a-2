@@ -56,7 +56,6 @@ namespace AppInsegura.Datos
         // de mala practica 
         private Usuario? EjecutarConsultaSimulada(string consulta, string? parametro = null)
         {
-            Console.WriteLine($"[DB] {consulta}");
 
                if (parametro == null)
             {
