@@ -30,9 +30,9 @@ namespace AppInsegura.Servicios
             }
 
             // CORRECCIÓN 1 (continuación): Lista blanca para evitar escalada de privilegios en el rol
-            if (rol != "jugador")
-            {
-                rol = "jugador";
+             if (rol != "jugador" && rol != "admin")
+             {
+                 rol = "jugador";
             }
 
             var nuevo = new Usuario
