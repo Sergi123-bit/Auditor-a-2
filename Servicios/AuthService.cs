@@ -5,6 +5,10 @@ using System.Text;
 using AppInsegura.Datos;
 using AppInsegura.Modelos;
 
+
+// Define el espacio de nombres para organizar las clases de servicios del proyecto
+// Inicializa el servicio de autenticación inyectando la dependencia de la base de datos de usuarios.
+// Guarda la instancia de la base de datos para usarla en los métodos de autenticación
 namespace AppInsegura.Servicios
 {
     public class AuthService
