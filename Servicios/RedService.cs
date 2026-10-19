@@ -71,7 +71,7 @@ namespace AppInsegura.Servicios
             // Envío de la petición HTTP POST de manera asíncrona al servidor web
             HttpResponseMessage respuesta = await cliente.PostAsync(UrlServidor, contenido);
 
-            // Impresión del código de estado HTTP recibido (ej. 200 OK, 401 Unauthorized, etc.)
+            // Impresión del código de estado HTTP recibido 
             Console.WriteLine($"Respuesta del servidor: {(int)respuesta.StatusCode}");
         }
     }
