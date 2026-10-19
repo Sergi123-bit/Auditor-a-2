@@ -33,7 +33,7 @@ namespace AppInsegura.Servicios
                 throw new ArgumentException("La contrase�a debe tener al menos 8 caracteres.");
             }
 
-            // CORRECCIÓN 1 (continuación): Lista blanca para evitar escalada de privilegios en el rol
+            // CORRECCIÓN 1 : Lista blanca para evitar escalada de privilegios en el rol
              if (rol != "jugador" && rol != "admin")
              {
                  rol = "jugador";
